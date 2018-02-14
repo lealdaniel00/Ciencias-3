@@ -1,0 +1,48 @@
+class Cola:
+    """ Representa una cola con operaciones de encolar, desencolar y
+        verificar si está vacía. """
+ 
+    def __init__(self):
+        """ Crea una cola vacía. """
+        # La cola vacía se representa con una lista vacía
+        self.items=[]
+
+    def encolar(self, x):
+        """ Agrega el elemento x a la cola. """
+        # Encolar es agregar al final de la cola.
+        self.items.append(x)
+
+    def desencolar(self):
+        """ Devuelve el elemento inicial y lo elimina de la cola.
+            Si la cola está vacía levanta una excepción. """
+        try:
+            return self.items.pop(0)
+        except IndexError:
+            raise ValueError("La cola está vacía")
+
+    def es_vacia(self):
+        """ Devuelve True si la lista está vacía, False si no. """
+        return self.items == []
+
+class Objeto:
+    def __init__(self,documento,nombre,especialidad):
+        self.documento=documento
+        self.nombre=nombre
+        self.especialidad=especialidad
+    def getEspecialidad(self):
+        return self.especialidad
+    
+lista=[]
+
+while True:
+    try:
+        persona = Objeto(int(input("Digite:")),raw_input("Digite name"),raw_input("Digite esp"))
+    except:
+        print ("Solo digite enteros")
+        break
+  
+       
+cola = Cola()
+persona = Objeto(0,'a','b')
+cola.encolar(persona)
+print cola.es_vacia()
