@@ -36,33 +36,42 @@ def verificacionInt(valor):
         return True
     except ValueError:
         return False
-
-#def operacion(valor1,valor2,operacion):
-#    if(operacion=="+"):
-#        return valor1+valor2
-#    if(operacion=="-"):
-#        return valor1-valor2
-#    if(operacion=="/"):
-#        return valor1/valor2
-#    if(operacion=="*"):
-#        return valor1*valor2
-#    if(operacion=="^"):
-#        return valor1**valor2
     
-pila = Pila()
+def operacion(valor1,valor2,operacion):
+    if(operacion=="+"):
+        return valor1+valor2
+    if(operacion=="-"):
+        return valor1-valor2
+    if(operacion=="/"):
+        return valor1/valor2
+    if(operacion=="*"):
+        return valor1*valor2
+    if(operacion=="^"):
+        return valor1**valor2
+    
+
 while True:
-    expresion = raw_input("Digite la expresion: ")
+    pila = Pila()
+    #pilaOp = Pila()
+    expresion1 = raw_input("Digite la expresion: ")
+    expresion = expresion1.split(" ")
     try:
         for caracter in expresion:
+            print caracter
             if(verificacionInt(caracter)==True):
                 pila.apilar(caracter)
+                #pilaOp.apilar(caracter)
             else:
                 derecha = pila.desapilar()
                 izquierda = pila.desapilar()
                 if(verificacionCar(caracter)==True):
                     pila.apilar("("+izquierda+caracter+derecha+")")
+                    #pilaOp.apilar(operacion(int(izquierda),int(derecha),caracter))
         operacion = pila.desapilar()
-        print operacion
+        print "Infija "+operacion
+        #operada = pilaOp.desapilar()
+        #print "Resultado: "
+        #print operada
     except:
         print " La expresion no es valida"
         break
