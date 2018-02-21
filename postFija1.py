@@ -38,7 +38,6 @@ def verificacionInt(valor):
         return False
     
 def op(valor1,valor2,operacion):
-    print("estoy en operaciones")
     if(operacion=="+"):
         return valor1+valor2
     if(operacion=="-"):
@@ -58,7 +57,6 @@ while True:
     expresion = expresion1.split(" ")
     try:
         for caracter in expresion:
-            print caracter
             if(verificacionInt(caracter)==True):
                 pila.apilar(caracter)
                 pilaOp.apilar(caracter)
