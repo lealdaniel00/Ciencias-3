@@ -25,7 +25,7 @@ class Pila:
         return self.items == []
 
 def verificacionCar(valor):
-    if(valor=="+" or valor=="-" or valor=="/" or valor=="-" or valor=="^"):
+    if(valor=="+" or valor=="-" or valor=="/" or valor=="-" or valor=="^" or "*"):
         return True
     else:
         return False
@@ -37,7 +37,7 @@ def verificacionInt(valor):
     except ValueError:
         return False
     
-def operacion(valor1,valor2,operacion):
+def op(valor1,valor2,operacion):
     if(operacion=="+"):
         return valor1+valor2
     if(operacion=="-"):
@@ -52,7 +52,7 @@ def operacion(valor1,valor2,operacion):
 
 while True:
     pila = Pila()
-    #pilaOp = Pila()
+    pilaOp = Pila()
     expresion1 = raw_input("Digite la expresion: ")
     expresion = expresion1.split(" ")
     try:
@@ -60,18 +60,18 @@ while True:
             print caracter
             if(verificacionInt(caracter)==True):
                 pila.apilar(caracter)
-                #pilaOp.apilar(caracter)
+                pilaOp.apilar(caracter)
             else:
-                derecha = pila.desapilar()
-                izquierda = pila.desapilar()
+                derecha=pila.desapilar()
+                izquierda=pila.desapilar()
                 if(verificacionCar(caracter)==True):
                     pila.apilar("("+izquierda+caracter+derecha+")")
-                    #pilaOp.apilar(operacion(int(izquierda),int(derecha),caracter))
+                    pilaOp.apilar(str(op(float(izquierda),float(derecha),caracter)))
         operacion = pila.desapilar()
         print "Infija "+operacion
-        #operada = pilaOp.desapilar()
-        #print "Resultado: "
-        #print operada
+        resultado = pilaOp.desapilar()
+        print "Resultado: "
+        print resultado
     except:
         print " La expresion no es valida"
         break
