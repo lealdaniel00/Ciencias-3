@@ -1,3 +1,4 @@
+from pila import *
 caracteres = ['+','-','/','*']    
 def caracter (valor):
     for y in caracteres:
@@ -16,11 +17,12 @@ def validar(operando):
             return True
         print "here 3"
         return False
-    
+   
 postfija="postfija.txt"
 exprecion = [y.split(' ') for y in [x.strip('\n') for x in open(postfija, "r").readlines()]]
+pila=Pila()
 for y in exprecion:
-    for x in y:
-        print x
+    for x in y:       
         if validar(x):
             print "Expresion valida"
+
