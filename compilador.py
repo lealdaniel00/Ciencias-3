@@ -89,9 +89,9 @@ if not error:
     for expresion in listaExpresiones:
         posError +=1
         if posError >0:            
-            for elemento in expresion:
+            for i, elemento in enumerate(expresion[:-1]):
                 if esVariable(elemento):
-                    if expresion.index(elemento)==len(expresion)-2:
+                    if expresion[i+1]=="=":
                         "La variable está al final de la expresion, por lo que se agrega a la lista de variables"
                         if(pila.es_vacia()):
                             print "El sentido de la expresion es erroneo en la linea "+str(posError)
