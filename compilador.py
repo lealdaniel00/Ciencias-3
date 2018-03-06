@@ -1,4 +1,5 @@
 from pila import *
+
 caracteres = ['+','-','/','*','=']    
 def caracter (valor):
     for y in caracteres:
@@ -45,16 +46,18 @@ def operar(valor1,valor2,operacion):
         return valor1*valor2
     if(operacion=="^"):
         return valor1**valor2
+def esDivision(var1,var2,operacion):
+    if(operacion=="/" and var2==0):
+        return True
+    return False
+    
 def buscar(var1,var2):
     cont=0;
-    pos=0;
     for variable in var1:
         if(variable.identificador == var2 and cont == 0):
            cont+=1;
-        pos+=1;
-    if(cont==0):
-        return 0
-    return pos;
+    return cont;
+
 def cambiar(var1,var2,result):
     for variable in var1:
        if variable.identificador == var2:
@@ -72,41 +75,59 @@ pila=Pila()
 variables=[]
 error=False
 posError=0
-carError=''
-"""------------------------Validación de la Expresión-----------------"""
+errores=[]
+"------------------------Validación de la Expresión-----------------"
 for y in listaExpresiones:
-    if not error:
         posError += 1
         for x in y:
             if not validar(x):
-                carError=x
                 error = True
-                break
-"""------------------------Cálculo de la Expresión----------------------"""
+                errores.append(Variable(posError,x))
+"------------------------Cálculo de la Expresión----------------------"
+posError=0
 if not error:
     for expresion in listaExpresiones:
-        for elemento in expresion:
-            if esVariable(elemento):
-                if expresion.index(elemento)==len(expresion)-2:
-                    """La variable está al final de la expresion, por lo que se agrega a la lista de variables"""
-                    value=pila.desapilar()
-                    variables.append(Variable(elemento, value))
-                    if(buscar(variables,elemento)!=0):
-                        variables=cambiar(variables,elemento,value)          
-                else:
-                    """Se busca en la lista de variables la variable, se obtiene su valor, y se hace push en la pila el número..."""
-                    for objeto in variables:
-                        if(objeto.identificador==elemento):
-                             pila.apilar(int(objeto.valor))
-            elif verificacionInt(elemento):
-                pila.apilar(int(elemento))
-            elif verificacionCar(elemento):
-                valor1=pila.desapilar()
-                valor2=pila.desapilar()
-                pila.apilar(operar(valor2, valor1, elemento))
+        posError +=1
+        if posError >0:            
+            for elemento in expresion:
+                if esVariable(elemento):
+                    if expresion.index(elemento)==len(expresion)-2:
+                        "La variable está al final de la expresion, por lo que se agrega a la lista de variables"
+                        if(pila.es_vacia()):
+                            print "El sentido de la expresion es erroneo en la linea "+str(posError)
+                            break
+                        value=pila.desapilar()
+                        if(buscar(variables,elemento)!=0):
+                            variables=cambiar(variables,elemento,value)
+                        else:
+                            variables.append(Variable(elemento, value))
+                    else:
+                        "Se busca en la lista de variables la variable, se obtiene su valor, y se hace push en la pila el número..."
+                        for objeto in variables:
+                            if(objeto.identificador==elemento):
+                                pila.apilar(int(objeto.valor))
+                elif verificacionInt(elemento):
+                    pila.apilar(int(elemento))
+                elif verificacionCar(elemento):
+                    try:
+                        valor1=pila.desapilar()
+                        valor2=pila.desapilar()
+                        if not(esDivision(valor2,valor1,elemento)):
+                            pila.apilar(operar(valor2, valor1, elemento))
+                        else:
+                            print "Error division por cero"
+                            posError=-1
+                            break
+                    except ValueError:
+                        print "No se ha definido la variable en la linea "+str(posError) 
+                        break
+        else:
+            break
     for var in variables:
         print var.identificador+" = "+str(var.valor)
 else:
-    print "Error en la operacion "+str(posError)
-    print "Caracter invalido " + carError
+    for err in errores:
+        print "Error en la operacion "+str(err.identificador)
+        print "Caracter invalido " + str(err.valor)
+
     
