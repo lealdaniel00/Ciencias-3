@@ -1,11 +1,12 @@
 from pila import *
-
 caracteres = ['+','-','/','*','=']    
+
 def caracter (valor):
     for y in caracteres:
         if y == valor :
             return True
     return False
+
 def validar(operando):
     try:
         operando = int(operando)
@@ -106,10 +107,9 @@ def operacion_sin_variable(expresion):
     except:
         print "La expresion no es valida"
         
-
-"------------------------Validación de la Expresión-----------------"
+"------------------------ValidaciÃ³n de la ExpresiÃ³n-----------------"
 errores=sintactico(listaExpresiones,errores)
-"------------------------Cálculo de la Expresión----------------------"
+"------------------------CÃ¡lculo de la ExpresiÃ³n----------------------"
 posError=0
 if len(errores)==0:
     for expresion in listaExpresiones:
@@ -120,10 +120,9 @@ if len(errores)==0:
             for i, elemento in enumerate(expresion[:-1]):
                 #print "Entra :"+str(posError)
                 if esVariable(elemento):
-                    #print "Entra :"+str(posError)
-                    
+                    #print "Entra :"+str(posError)                 
                     if expresion[i+1]=="=":
-                        "La variable está al final de la expresion, por lo que se agrega a la lista de variables"
+                        "La variable estÃ¡ al final de la expresion, por lo que se agrega a la lista de variables"
                         if(pila.es_vacia()):
                             print "El sentido de la expresion es erroneo en la linea "+str(posError)
                             break
@@ -133,7 +132,7 @@ if len(errores)==0:
                         else:
                             variables.append(Variable(elemento, value))
                     else:
-                        "Se busca en la lista de variables la variable, se obtiene su valor, y se hace push en la pila el número..."
+                        "Se busca en la lista de variables la variable, se obtiene su valor, y se hace push en la pila el nÃºmero..."
                         for objeto in variables:
                             if(objeto.identificador==elemento):
                                 pila.apilar(int(objeto.valor))
