@@ -1,3 +1,4 @@
+# -*- coding: cp1252 -*-
 from pila import *
 
 caracteres = ['+','-','/','*','=']    
@@ -63,29 +64,30 @@ def cambiar(var1,var2,result):
        if variable.identificador == var2:
            variable.valor=result
     return var1
-
+def sintactico(listaExpresiones,errores):
+    posError=0
+    for y in listaExpresiones:
+        posError += 1
+        for x in y:
+            if not validar(x):
+                errores.append(Variable(posError,x))
+    return errores
 class Variable:
     def __init__(self, identificador, valor):
         self.identificador=identificador
         self.valor=valor
 
 postfija="postfija.txt"
+"Analisis lexico"
 listaExpresiones = [y.split(' ') for y in [x.strip('\n') for x in open(postfija, "r").readlines()]]
 pila=Pila()
 variables=[]
-error=False
-posError=0
 errores=[]
 "------------------------Validación de la Expresión-----------------"
-for y in listaExpresiones:
-        posError += 1
-        for x in y:
-            if not validar(x):
-                error = True
-                errores.append(Variable(posError,x))
+errores=sintactico(listaExpresiones,errores)
 "------------------------Cálculo de la Expresión----------------------"
 posError=0
-if not error:
+if len(errores)==0:
     for expresion in listaExpresiones:
         posError +=1
         if posError >0:            
@@ -129,5 +131,4 @@ else:
     for err in errores:
         print "Error en la operacion "+str(err.identificador)
         print "Caracter invalido " + str(err.valor)
-
     
