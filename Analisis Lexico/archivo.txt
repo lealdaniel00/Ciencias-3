@@ -1,1 +1,10 @@
 si 3<4 entonces
+>
+a = b
+sino
+si a != b hacer
+a = 3
+z
++
+-
+==
