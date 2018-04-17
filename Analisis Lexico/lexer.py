@@ -1,27 +1,36 @@
 import ply.lex as lex
 
-tokens = ['PRESERVADA','DESIGUALDAD','NAME','NUMBER','PLUS','MINUS','TIMES','DIVIDE', 'EQUALS']
-pReserv =['SI','si','entonces','ENTONCES','para','PARA','hacer','HACER','SINO','sino']
-desigualdad=['<','>','<=','>=','==','!=']
+tokens = ['PRESERVADA','DESIGUALDAD','VARIABLE','ASIGNACION','NUMBER','SUMA','RESTA','MULTIPLICACION', 'DIVISION','FINAL']
+pReserv =['SI','si','entonces','ENTONCES','repetir','REPETIR','para','PARA','hacer','HACER','SINO','sino','mientras','MIENTRAS','HASTA','hasta','fin','FIN']
+desigualdad=['<','>','<=','>=','==','!=','<--','menor','MENOR','mayor','MAYOR','diferente','DIFERENTE','menor','MENOR','mayor','MAYOR']
 t_ignore = ' \t'
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_DIVIDE = r'/'
-t_EQUALS = r'='
-t_NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
-t_DESIGUALDAD = r'== | < | > | <= | >= | !='
-
+t_ASIGNACION = r'='
+t_SUMA = r'\+'
+t_RESTA = r'-'
+t_MULTIPLICACION = r'\*'
+t_DIVISION = r'/'
+t_VARIABLE = r'[[a-zA-Z_][a-zA-Z0-9_]*'
+t_FINAL = r'fin' 
 def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)
     return t
 def t_PRESERVADA(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    r'[[a-zA-Z_][a-zA-Z0-9_]*'
+    return buscar(t)
+def t_DESIGUALDAD(t):
+    r'[[a-zA-Z_][a-zA-Z0-9_]*|(==) | (<) | (>) | (<=) | (>=) | (!=)'
+    return buscar(t)
+def buscar(t):
+    for x in desigualdad:
+        if x==t.value:
+            t.type='DESIGUALDAD'
+            return t
     for x in pReserv:
         if x==t.value:
+            t.type='PRESERVADA'
             return t
-    t.type='NAME'
+    t.type = 'VARIABLE'
     return t
 # Error handling rule
 def t_error(t):
