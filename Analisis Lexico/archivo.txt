@@ -1,4 +1,4 @@
-si 3<4 entonces
+si 3 < 4 entonces
 >
 a = b
 sino
@@ -8,3 +8,8 @@ z
 +
 -
 ==
+fin si
+fin para
+menor
+==	
+
