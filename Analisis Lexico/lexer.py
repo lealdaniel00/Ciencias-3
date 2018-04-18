@@ -20,7 +20,7 @@ def t_NUMERO(t):
 def t_PRESERVADA(t):
     r'[[a-zA-Z_][a-zA-Z0-9_]*'
     return buscar(t)
-def t_DESIGUALDAD(t):
+def t_RELACIONAL(t):
     r'[[a-zA-Z_][a-zA-Z0-9_]*|(==) | (<) | (>) | (<=) | (>=) | (!=)'
     return buscar(t)
 
