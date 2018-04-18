@@ -25,9 +25,9 @@ def t_RELACIONAL(t):
     return buscar(t)
 
 def buscar(t):
-    for x in desigualdad:
+    for x in relacional:
         if x==t.value:
-            t.type='DESIGUALDAD'
+            t.type='RELACIONAL'
             return t
     for x in pReserv:
         if x==t.value:
@@ -37,7 +37,7 @@ def buscar(t):
     return t
 # Error handling rule
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print("Caracter ilegal '%s'" % t.value[0])
     t.lexer.skip(1)
 lex.lex() # Build the lexer
 pClave=['si','entonces']
@@ -49,3 +49,4 @@ for expresion in listaExpresiones:
         tok = lex.token()
         if not tok: break
         print (str(tok.value) + " - " + str(tok.type))
+
