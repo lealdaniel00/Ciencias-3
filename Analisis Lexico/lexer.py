@@ -1,14 +1,16 @@
 import ply.lex as lex
 
-tokens = ['PRESERVADA','DESIGUALDAD','VARIABLE','ASIGNACION','NUMERO','SUMA','RESTA','MULTIPLICACION', 'DIVISION','FINAL','ASIGNACION']
-pReserv =['SI','si','entonces','ENTONCES','repetir','REPETIR','para','PARA','hacer','HACER','SINO','sino','mientras','MIENTRAS','HASTA','hasta','fin','FIN']
-asignacion=['<-','=']
-desigualdad=['<','>','<=','>=','==','!=','menor','MENOR','mayor','MAYOR','diferente','DIFERENTE','menor','MENOR','mayor','MAYOR']
+tokens = ['PRESERVADA','RELACIONAL','VARIABLE','ASIGNACION','NUMERO','SUMA','RESTA','MULTIPLICACION', 'DIVISION','FINAL','ASIGNACION','POTENCIACION','MODULO']
+pReserv =['SI','si','entonces','ENTONCES','repetir','REPETIR','para','PARA','hacer','HACER','SINO','sino','mientras','MIENTRAS','HASTA','hasta','fin','FIN','ESCRIBIR','escribir','leer','LEER']
+relacional=['<','>','<=','>=','==','!=','menor','MENOR','mayor','MAYOR','diferente','DIFERENTE','menor','MENOR','mayor','MAYOR']
 t_ignore = ' \t'
 t_SUMA = r'\+'
 t_RESTA = r'-'
 t_MULTIPLICACION = r'\*'
 t_DIVISION = r'/'
+t_POTENCIACION = r'\^'
+t_ASIGNACION = r'='
+t_MODULO = r'%'
 t_VARIABLE = r'[[a-zA-Z_][a-zA-Z0-9_]*'
 t_FINAL = r'fin'
 def t_NUMERO(t):
@@ -18,18 +20,11 @@ def t_NUMERO(t):
 def t_PRESERVADA(t):
     r'[[a-zA-Z_][a-zA-Z0-9_]*'
     return buscar(t)
-def t_ASIGNACION(t):
-    r'= | (<-)'
-    return buscar(t)
 def t_DESIGUALDAD(t):
     r'[[a-zA-Z_][a-zA-Z0-9_]*|(==) | (<) | (>) | (<=) | (>=) | (!=)'
     return buscar(t)
 
 def buscar(t):
-    for x in asignacion:
-        if x==t.value:
-            t.type='ASIGNACION'
-            return t
     for x in desigualdad:
         if x==t.value:
             t.type='DESIGUALDAD'
