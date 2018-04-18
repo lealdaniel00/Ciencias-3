@@ -2,7 +2,7 @@ import ply.lex as lex
 
 pReserv =['SI','si','entonces','ENTONCES','repetir','REPETIR','para','PARA','hacer','HACER','SINO','sino','mientras','MIENTRAS','HASTA','hasta','fin','FIN','ESCRIBIR','escribir','leer','LEER']
 relacional=['<','>','<=','>=','==','!=','menor','MENOR','mayor','MAYOR','diferente','DIFERENTE','menor','MENOR','mayor','MAYOR']
-tokens = ['PRESERVADA','RELACIONAL','VARIABLE','NUMERO','SUMA','RESTA','MULTIPLICACION', 'DIVISION','FINAL','ASIGNACION','POTENCIACION','MODULO']+pReserv
+tokens = ['PRESERVADA','RELACIONAL','VARIABLE','NUMERO','SUMA','RESTA','MULTIPLICACION','PARENTESISABIERTO','PARENTESISCERRADO', 'DIVISION','FINAL','ASIGNACION','POTENCIACION','MODULO']+pReserv
 
 t_ignore = ' \t'
 t_ASIGNACION = r'='
@@ -12,6 +12,8 @@ t_MULTIPLICACION = r'\*'
 t_DIVISION = r'/'
 t_POTENCIACION = r'\^'
 t_MODULO = r'%'
+t_PARENTESISABIERTO = r'\('
+t_PARENTESISCERRADO = r'\)'
 t_VARIABLE = r'[[a-zA-Z_][a-zA-Z0-9_]*'
 t_FINAL = r'fin'
 def t_NUMERO(t):
@@ -49,3 +51,4 @@ for expresion in listaExpresiones:
         tok = lex.token()
         if not tok: break
         print (str(tok.value) + " - " + str(tok.type))
+
