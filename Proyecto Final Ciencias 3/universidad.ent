@@ -1,0 +1,47 @@
+entidad Profesor{
+  nombre : string
+  apellido : string
+  tipoIdentificacion : string
+  identificacion : integer
+  codigo : integer
+  correo : string
+  celular : Celular
+  direccion : Direccion
+}
+
+entidad Estudiante{
+  nombre : string
+  apellido : string
+  tipoIdentificacion : string
+  identificacion : integer
+  codigo : integer
+  correoInstitucional : string
+  correo : string
+  celular : Celular
+  direccion : Direccion
+  semestre : string
+  horario : Horario
+}
+
+  
+entidad Direccion{
+  calle : string
+  barrio : string
+  ciudad : string
+  pais : string
+}
+
+entidad Celular{
+  operador : string
+  numero : string
+}
+
+entidad Horario{
+  asignaturas : Asignatura // No se aun como definir un arreglo generado
+}
+
+entidad Asignatura{
+  codigoAsignatura : integer
+  nombreAsignatura : integer
+  creditos : integer
+}
